@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  livekit:
+    image: livekit/livekit-server:latest
+    ports:
+      - "7880:7880"          # WebRTC port
+      - "7881:7881"          # HTTP API port
+    environment:
+      LIVEKIT_KEYS: "devkey: devsecret"
+      LIVEKIT_CONFIG_FILE: "/livekit/livekit.yaml"
+    volumes:
+      - D:\val\livekit-config:/livekit
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped

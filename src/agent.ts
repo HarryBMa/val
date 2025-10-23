@@ -9,6 +9,7 @@ import {
 } from '@livekit/agents';
 import * as livekit from '@livekit/agents-plugin-livekit';
 import * as silero from '@livekit/agents-plugin-silero';
+import * as openai from '@livekit/agents-plugin-openai';
 import { BackgroundVoiceCancellation } from '@livekit/noise-cancellation-node';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
@@ -18,10 +19,24 @@ dotenv.config({ path: '.env.local' });
 class Assistant extends voice.Agent {
   constructor() {
     super({
-      instructions: `You are a helpful voice AI assistant. The user is interacting with you via voice, even if you perceive the conversation as text.
-      You eagerly assist users with their questions by providing information from your extensive knowledge.
-      Your responses are concise, to the point, and without any complex formatting or punctuation including emojis, asterisks, or other symbols.
-      You are curious, friendly, and have a sense of humor.`,
+      instructions: `You are Val, an expert anesthesia voice AI assistant specializing in perioperative care and anesthesia management.
+
+As a medical AI assistant, you provide evidence-based guidance for:
+- Pre-anesthetic assessment and patient evaluation
+- Anesthesia planning and medication selection
+- Intraoperative monitoring and vital sign interpretation
+- Postoperative care and pain management
+- Emergency response protocols
+- Medication dosing calculations
+- Airway management strategies
+
+Always prioritize patient safety and follow current medical guidelines. When providing recommendations:
+- Cite relevant medical literature or guidelines when possible
+- Clearly state when recommendations are general vs. patient-specific
+- Advise consultation with supervising physicians for complex cases
+- Use clear, concise language appropriate for medical professionals
+
+You are curious, professional, and focused on patient-centered care. Your responses are concise and actionable.`,
 
       // To add tools, specify `tools` in the constructor.
       // Here's an example that adds a simple weather tool.
@@ -59,8 +74,13 @@ export default defineAgent({
       stt: 'assemblyai/universal-streaming:en',
 
       // A Large Language Model (LLM) is your agent's brain, processing user input and generating a response
+      // Using II-Medical-8B-1706-GGUF Q4_K_M model via Ollama for local medical AI assistance
       // See all providers at https://docs.livekit.io/agents/models/llm/
-      llm: 'openai/gpt-4.1-mini',
+      llm: openai.LLM.withOllama({
+        model: 'ii-medical-8b-1706-gguf:Q4_K_M', // Local II-Medical model via Ollama
+        baseURL: 'http://localhost:11434', // Ollama default port
+        temperature: 0.1, // Lower temperature for medical accuracy
+      }),
 
       // Text-to-speech (TTS) is your agent's voice, turning the LLM's text into speech that the user can hear
       // See all available models as well as voice selections at https://docs.livekit.io/agents/models/tts/
@@ -73,11 +93,10 @@ export default defineAgent({
     });
 
     // To use a realtime model instead of a voice pipeline, use the following session setup instead.
-    // (Note: This is for the OpenAI Realtime API. For other providers, see https://docs.livekit.io/agents/models/realtime/))
+    // (Note: This is for the OpenAI Realtime API. For Ollama, realtime is not currently supported)
     // 1. Install '@livekit/agents-plugin-openai'
-    // 2. Set OPENAI_API_KEY in .env.local
-    // 3. Add import `import * as openai from '@livekit/agents-plugin-openai'` to the top of this file
-    // 4. Use the following session setup instead of the version above
+    // 2. Ensure Ollama is running locally
+    // 3. Use the following session setup instead of the version above (not recommended for Ollama)
     // const session = new voice.AgentSession({
     //   llm: new openai.realtime.RealtimeModel({ voice: 'marin' }),
     // });

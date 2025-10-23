@@ -1,0 +1,39 @@
+# LiveKit Server Configuration for Medical AI Assistant
+# See https://docs.livekit.io/enterprise/self-hosting/ for full documentation
+
+logging:
+  level: info
+  json: false
+
+# Redis configuration for room state and signaling
+redis:
+  address: redis:6379
+
+# TURN server configuration (optional for local development)
+turn:
+  enabled: false
+
+# WebRTC configuration
+rtc:
+  port_range_start: 51000
+  port_range_end: 52000
+  use_external_ip: false
+
+# Room configuration for medical consultations
+room:
+  # Allow up to 2 participants (doctor + patient/assistant)
+  max_participants: 2
+  # Keep rooms active for medical consultations
+  empty_timeout: 300  # 5 minutes
+  # Enable recording for medical documentation (optional)
+  enable_recording: false
+
+# API configuration
+api:
+  # Enable HTTP API for room management
+  enabled: true
+  port: 7881
+
+# Webhook configuration (optional)
+webhook:
+  urls: []

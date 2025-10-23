@@ -1,0 +1,5 @@
+{
+  "model": "hf.co/Intelligent-Internet/II-Medical-8B-1706-GGUF:Q4_K_M",
+  "prompt": "What is general anesthesia?",
+  "stream": false
+}

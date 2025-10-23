@@ -1,0 +1,4 @@
+# API keys for LiveKit server
+# Generate secure keys for production use
+keys:
+  devkey: devsecret
