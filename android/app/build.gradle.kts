@@ -1,19 +1,19 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.2.0"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
 }
 
 android {
     namespace = "dev.soupslurpr.transcribro"
-    compileSdk = 36
-    buildToolsVersion = "36.0.0"
+    compileSdk = 34
+    buildToolsVersion = "34.0.0"
     ndkVersion = "27.2.12479018"
 
     defaultConfig {
         applicationId = "dev.soupslurpr.transcribro"
         minSdk = 29
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 7
         versionName = versionCode.toString()
 
