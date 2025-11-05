@@ -13,5 +13,7 @@
 			"path": "../val-android"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
 }
