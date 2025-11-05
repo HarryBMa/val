@@ -1,3 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Calming Medical Assistant Theme Colors -->
+
+    <!-- Primary colors - Soft blue-gray palette -->
+    <color name="primary">#7c9cb5</color>
+    <color name="primary_dark">#5d7a8f</color>
+    <color name="primary_light">#a8c0d4</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#4a5568</color>
+    <color name="text_secondary">#8b98a5</color>
+
+    <!-- Background colors -->
+    <color name="background_primary">#f8fafb</color>
+    <color name="background_white">#ffffff</color>
+    <color name="background_white_40">#66ffffff</color>
+    <color name="background_white_60">#99ffffff</color>
+    <color name="background_white_80">#ccffffff</color>
+
+    <!-- Status colors -->
+    <color name="status_active">#10b981</color>
+    <color name="status_error">#ef4444</color>
+    <color name="status_warning">#f59e0b</color>
+
+    <!-- Border colors -->
+    <color name="border_light">#e5e7eb</color>
+    <color name="border_white_40">#66ffffff</color>
+
+    <!-- Overlay colors -->
+    <color name="overlay_backdrop">#33000000</color>
 </resources>
