@@ -40,6 +40,7 @@ fun EnhancedChatScreen(
     }
     
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = {
             SnackbarHost(
                 hostState = remember { SnackbarHostState() }.apply {
@@ -64,7 +65,7 @@ fun EnhancedChatScreen(
                 },
                 modifier = Modifier.align(Alignment.Center)
             )
-            
+
             // Chat transcript overlay
             AnimatedVisibility(
                 visible = hasMessages && chatOpen,
@@ -78,16 +79,16 @@ fun EnhancedChatScreen(
                     modifier = Modifier.fillMaxSize()
                 )
             }
-            
+
             // Status indicator at top
             StatusIndicator(
                 chatState = chatState,
                 llmProvider = llmProvider,
                 modifier = Modifier
                     .align(Alignment.TopCenter)
-                    .padding(top = 16.dp)
+                    .padding(top = 24.dp)
             )
-            
+
             // Control bar at bottom
             AgentControlBar(
                 chatState = chatState,
