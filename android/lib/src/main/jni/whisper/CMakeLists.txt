@@ -14,26 +14,36 @@ set(
         ${CMAKE_SOURCE_DIR}/jni.c
 )
 
-# TODO: this needs to be updated to work with the new ggml CMakeLists
+# Updated to work with the new ggml structure
 
 if (NOT GGML_HOME)
     set(
             SOURCE_FILES
             ${SOURCE_FILES}
+            # Core ggml files
             ${WHISPER_LIB_DIR}/ggml/src/ggml.c
+            ${WHISPER_LIB_DIR}/ggml/src/ggml.cpp
             ${WHISPER_LIB_DIR}/ggml/src/ggml-alloc.c
             ${WHISPER_LIB_DIR}/ggml/src/ggml-backend.cpp
             ${WHISPER_LIB_DIR}/ggml/src/ggml-backend-reg.cpp
             ${WHISPER_LIB_DIR}/ggml/src/ggml-quants.c
             ${WHISPER_LIB_DIR}/ggml/src/ggml-threading.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-opt.cpp
+            # ggml-cpu files
             ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/ggml-cpu.c
             ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/ggml-cpu.cpp
-            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/ggml-cpu-aarch64.cpp
-            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/ggml-cpu-hbm.cpp
-            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/ggml-cpu-quants.c
-            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/ggml-cpu-traits.cpp
-            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/unary-ops.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/repack.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/hbm.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/quants.c
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/traits.cpp
             ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/binary-ops.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/unary-ops.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/vec.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/ops.cpp
+            # ARM-specific files for Android
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/arch/arm/cpu-feats.cpp
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/arch/arm/quants.c
+            ${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/arch/arm/repack.cpp
     )
 endif()
 
@@ -94,3 +104,4 @@ include_directories(${WHISPER_LIB_DIR}/include)
 include_directories(${WHISPER_LIB_DIR}/ggml/include)
 include_directories(${WHISPER_LIB_DIR}/ggml/src)
 include_directories(${WHISPER_LIB_DIR}/ggml/src/ggml-cpu)
+include_directories(${WHISPER_LIB_DIR}/ggml/src/ggml-cpu/arch/arm)
