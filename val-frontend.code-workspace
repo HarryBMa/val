@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "../val-android-real"
+		},
+		{
+			"path": "../val-android"
 		}
 	],
 	"settings": {}
