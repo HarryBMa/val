@@ -3,6 +3,7 @@ package com.yourcompany.val.ui.chat
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -73,27 +74,28 @@ fun ChatEntry(
                 }
             }
             
-            // Message bubble
+            // Message bubble - Glass morphism design
             Surface(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(20.dp)),
+                    .clip(RoundedCornerShape(16.dp)),
                 color = if (message.isUser) {
-                    MaterialTheme.colorScheme.primaryContainer
+                    Color(0xFFd4e8ed) // Primary container - light blue
                 } else {
-                    MaterialTheme.colorScheme.surfaceVariant
+                    Color.White.copy(alpha = 0.6f) // Glass effect
                 },
-                tonalElevation = if (message.isUser) 2.dp else 0.dp
+                shadowElevation = if (message.isUser) 2.dp else 1.dp,
+                tonalElevation = 0.dp
             ) {
                 Row(
-                    modifier = Modifier.padding(12.dp),
+                    modifier = Modifier.padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = message.text,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = Color(0xFF4a5568)
                     )
-                    
+
                     // Show typing indicator for streaming messages
                     if (message.isStreaming) {
                         Spacer(modifier = Modifier.width(4.dp))
@@ -240,32 +242,46 @@ fun EmptyState(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Welcome to Val",
-                style = MaterialTheme.typography.headlineLarge,
+                text = "Val",
+                style = MaterialTheme.typography.headlineLarge.copy(
+                    fontSize = 48.sp
+                ),
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
+                color = Color(0xFF4a5568)
             )
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
+
+            Spacer(modifier = Modifier.height(12.dp))
+
             Text(
-                text = "Your AI voice assistant",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                text = "Anesthesia Assistant",
+                style = MaterialTheme.typography.titleLarge,
+                color = Color(0xFF8b98a5)
             )
-            
-            Spacer(modifier = Modifier.height(32.dp))
-            
-            Button(
-                onClick = onStartClick,
+
+            Spacer(modifier = Modifier.height(48.dp))
+
+            // Gradient button matching Figma design
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(28.dp)
+                    .fillMaxWidth(0.7f)
+                    .height(56.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(
+                        brush = Brush.linearGradient(
+                            colors = listOf(
+                                Color(0xFF7c9cb5),
+                                Color(0xFF5d7a8f)
+                            )
+                        )
+                    )
+                    .clickable(onClick = onStartClick),
+                contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = startButtonText,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium
                 )
             }
         }

@@ -40,6 +40,7 @@ fun EnhancedChatScreen(
     }
     
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = {
             SnackbarHost(
                 hostState = remember { SnackbarHostState() }.apply {
@@ -64,7 +65,7 @@ fun EnhancedChatScreen(
                 },
                 modifier = Modifier.align(Alignment.Center)
             )
-            
+
             // Chat transcript overlay
             AnimatedVisibility(
                 visible = hasMessages && chatOpen,
@@ -78,16 +79,38 @@ fun EnhancedChatScreen(
                     modifier = Modifier.fillMaxSize()
                 )
             }
-            
+
+            // Audio visualizer when AI is speaking (center)
+            AnimatedVisibility(
+                visible = chatState == ChatState.SPEAKING && !chatOpen,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.6f),
+                enter = fadeIn(animationSpec = tween(400)) + scaleIn(
+                    animationSpec = tween(400),
+                    initialScale = 0.8f
+                ),
+                exit = fadeOut(animationSpec = tween(300)) + scaleOut(
+                    animationSpec = tween(300),
+                    targetScale = 0.8f
+                )
+            ) {
+                AudioVisualizer(
+                    isAnimating = chatState == ChatState.SPEAKING,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
             // Status indicator at top
             StatusIndicator(
                 chatState = chatState,
                 llmProvider = llmProvider,
                 modifier = Modifier
                     .align(Alignment.TopCenter)
-                    .padding(top = 16.dp)
+                    .padding(top = 24.dp)
             )
-            
+
             // Control bar at bottom
             AgentControlBar(
                 chatState = chatState,

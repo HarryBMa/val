@@ -15,33 +15,87 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+// Calming Medical Assistant Theme - Matching Figma Design
 private val DarkColorScheme = darkColorScheme(
-    primary = androidx.compose.ui.graphics.Color(0xFF90CAF9),
-    secondary = androidx.compose.ui.graphics.Color(0xFFCE93D8),
-    tertiary = androidx.compose.ui.graphics.Color(0xFFA5D6A7)
+    primary = androidx.compose.ui.graphics.Color(0xFF7c9cb5),
+    onPrimary = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+    primaryContainer = androidx.compose.ui.graphics.Color(0xFF5d7a8f),
+    onPrimaryContainer = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+
+    secondary = androidx.compose.ui.graphics.Color(0xFFa8c5d9),
+    onSecondary = androidx.compose.ui.graphics.Color(0xFF4a5568),
+    secondaryContainer = androidx.compose.ui.graphics.Color(0xFF8b98a5),
+    onSecondaryContainer = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+
+    tertiary = androidx.compose.ui.graphics.Color(0xFFb8d8d8),
+    onTertiary = androidx.compose.ui.graphics.Color(0xFF4a5568),
+
+    error = androidx.compose.ui.graphics.Color(0xFFef4444),
+    onError = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+
+    background = androidx.compose.ui.graphics.Color(0xFF1a1f2e),
+    onBackground = androidx.compose.ui.graphics.Color(0xFFe5e7eb),
+
+    surface = androidx.compose.ui.graphics.Color(0xFF242936),
+    onSurface = androidx.compose.ui.graphics.Color(0xFFe5e7eb),
+    surfaceVariant = androidx.compose.ui.graphics.Color(0x99ffffff),
+    onSurfaceVariant = androidx.compose.ui.graphics.Color(0xFF8b98a5),
+
+    outline = androidx.compose.ui.graphics.Color(0x26ffffff),
+    outlineVariant = androidx.compose.ui.graphics.Color(0x66ffffff)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = androidx.compose.ui.graphics.Color(0xFF1976D2),
-    secondary = androidx.compose.ui.graphics.Color(0xFF9C27B0),
-    tertiary = androidx.compose.ui.graphics.Color(0xFF388E3C),
-    
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    // Primary colors - Ocean blue theme
+    primary = androidx.compose.ui.graphics.Color(0xFF7c9cb5),
+    onPrimary = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+    primaryContainer = androidx.compose.ui.graphics.Color(0xFFd4e8ed),
+    onPrimaryContainer = androidx.compose.ui.graphics.Color(0xFF4a5568),
+
+    // Secondary colors
+    secondary = androidx.compose.ui.graphics.Color(0xFFa8c5d9),
+    onSecondary = androidx.compose.ui.graphics.Color(0xFF4a5568),
+    secondaryContainer = androidx.compose.ui.graphics.Color(0xFFe6f2f5),
+    onSecondaryContainer = androidx.compose.ui.graphics.Color(0xFF4a5568),
+
+    // Tertiary colors - Seafoam accents
+    tertiary = androidx.compose.ui.graphics.Color(0xFFb8d8d8),
+    onTertiary = androidx.compose.ui.graphics.Color(0xFF4a5568),
+    tertiaryContainer = androidx.compose.ui.graphics.Color(0xFFf0f4f7),
+    onTertiaryContainer = androidx.compose.ui.graphics.Color(0xFF4a5568),
+
+    // Error colors
+    error = androidx.compose.ui.graphics.Color(0xFFd4183d),
+    onError = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+    errorContainer = androidx.compose.ui.graphics.Color(0xFFfecdd3),
+    onErrorContainer = androidx.compose.ui.graphics.Color(0xFFd4183d),
+
+    // Background colors - Soft mist
+    background = androidx.compose.ui.graphics.Color(0xFFf8fafb),
+    onBackground = androidx.compose.ui.graphics.Color(0xFF4a5568),
+
+    // Surface colors - Glass morphism support
+    surface = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+    onSurface = androidx.compose.ui.graphics.Color(0xFF4a5568),
+    surfaceVariant = androidx.compose.ui.graphics.Color(0x99ffffff), // White 60%
+    onSurfaceVariant = androidx.compose.ui.graphics.Color(0xFF8b98a5),
+    surfaceTint = androidx.compose.ui.graphics.Color(0xFF7c9cb5),
+
+    // Outline colors
+    outline = androidx.compose.ui.graphics.Color(0x26ffffff), // White 15%
+    outlineVariant = androidx.compose.ui.graphics.Color(0x66ffffff), // White 40%
+
+    // Inverse colors
+    inverseSurface = androidx.compose.ui.graphics.Color(0xFF4a5568),
+    inverseOnSurface = androidx.compose.ui.graphics.Color(0xFFFFFFFF),
+    inversePrimary = androidx.compose.ui.graphics.Color(0xFFa8c5d9)
 )
 
 @Composable
 fun ValTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    // Dynamic color disabled to maintain calming medical theme
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -53,12 +107,13 @@ fun ValTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
-    
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            // Use background color for status bar to match calming design
+            window.statusBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
